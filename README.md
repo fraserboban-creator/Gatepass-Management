@@ -273,8 +273,8 @@ Professional search system available on every page.
 ### Step 1: Clone the Repository
 
 ```bash
-git clone <repository-url>
-cd hostel-gatepass-system
+git clone "https://github.com/fraserboban-creator/Gatepass-Management.git"
+cd Gatepass-Management
 ```
 
 ### Step 2: Install Backend Dependencies
