@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://gatepass-management-6211.onrender.com/api/:path*"
+      "destination": "https://pelican-eclipse-moonscape.ngrok-free.dev/api/:path*"
     }
   ]
 }
