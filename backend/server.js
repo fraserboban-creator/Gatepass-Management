@@ -1,4 +1,6 @@
 require('dotenv').config();
+const fs = require('fs');
+const path = require('path');
 const app = require('./src/app');
 const { initDatabase, db, saveDatabase } = require('./src/config/database');
 const BackgroundJobs = require('./src/services/backgroundJobs');
@@ -103,6 +105,12 @@ async function autoSeed() {
 
 // Initialize database before starting server
 initDatabase().then(async () => {
+  // Always run schema to ensure all tables exist (safe — uses CREATE TABLE IF NOT EXISTS)
+  const schemaPath = path.join(__dirname, 'src/database/schema.sql');
+  const schema = fs.readFileSync(schemaPath, 'utf8');
+  db.exec(schema);
+  console.log('✓ Schema applied');
+
   // Ensure AI tables exist (handles existing DBs that predate the migration)
   ensureTables();
 
