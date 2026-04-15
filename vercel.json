@@ -1,19 +1,8 @@
 {
-  "version": 2,
-  "builds": [
+  "rewrites": [
     {
-      "src": "frontend/package.json",
-      "use": "@vercel/next"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "https://gatepass-management-6211.onrender.com/api/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "frontend/$1"
+      "source": "/api/:path*",
+      "destination": "https://gatepass-management-6211.onrender.com/api/:path*"
     }
   ]
 }
