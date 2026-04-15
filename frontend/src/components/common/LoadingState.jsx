@@ -20,14 +20,10 @@ export default function LoadingState({
 }) {
   if (fullScreen) {
     return (
-      <div className="fixed inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-50">
+      <div className="fixed inset-0 bg-[var(--bg-primary)]/80 backdrop-blur-sm flex items-center justify-center z-50">
         <div className="flex flex-col items-center gap-4">
           <Loader size={size} className="text-blue-500" />
-          {text && (
-            <p className="text-sm font-medium text-blue-700">
-              {text}
-            </p>
-          )}
+          {text && <p className="text-sm font-medium text-[var(--text-secondary)]">{text}</p>}
         </div>
       </div>
     );
@@ -36,11 +32,7 @@ export default function LoadingState({
   return (
     <div className={`flex flex-col items-center justify-center py-12 gap-4 ${className}`}>
       <Loader size={size} className="text-blue-500" />
-      {text && (
-        <p className="text-sm font-medium text-blue-700">
-          {text}
-        </p>
-      )}
+      {text && <p className="text-sm font-medium text-[var(--text-secondary)]">{text}</p>}
     </div>
   );
 }

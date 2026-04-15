@@ -33,18 +33,10 @@ export const THEME_COLORS = {
 export const applyTheme = (themeName) => {
   const theme = THEME_COLORS[themeName];
   if (!theme) return;
-
-  // Update CSS variables
   document.documentElement.style.setProperty('--accent-primary', theme.primary);
   document.documentElement.style.setProperty('--accent-hover', theme.hover);
-  
-  // Store theme in body data attribute
   document.body.setAttribute('data-theme', themeName);
-  
-  // Dispatch custom event for components to listen
-  window.dispatchEvent(new CustomEvent('themeChange', { 
-    detail: { theme: themeName } 
-  }));
+  window.dispatchEvent(new CustomEvent('themeChange', { detail: { theme: themeName } }));
 };
 
 export const getTheme = () => {
@@ -58,8 +50,32 @@ export const saveTheme = (themeName) => {
   applyTheme(themeName);
 };
 
+// Dark mode
+export const getDarkMode = () => {
+  if (typeof window === 'undefined') return false;
+  return localStorage.getItem('dark_mode') === 'true';
+};
+
+export const applyDarkMode = (isDark) => {
+  if (typeof window === 'undefined') return;
+  if (isDark) {
+    document.documentElement.setAttribute('data-mode', 'dark');
+  } else {
+    document.documentElement.removeAttribute('data-mode');
+  }
+};
+
+export const toggleDarkMode = () => {
+  const current = getDarkMode();
+  const next = !current;
+  localStorage.setItem('dark_mode', String(next));
+  applyDarkMode(next);
+  window.dispatchEvent(new CustomEvent('darkModeChange', { detail: { dark: next } }));
+  return next;
+};
+
 export const initializeTheme = () => {
   if (typeof window === 'undefined') return;
-  const savedTheme = getTheme();
-  applyTheme(savedTheme);
+  applyDarkMode(getDarkMode());
+  applyTheme(getTheme());
 };

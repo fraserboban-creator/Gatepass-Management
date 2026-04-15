@@ -55,7 +55,7 @@ export default function RejectModal({ isOpen, onClose, onConfirm, gatepassId, st
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden"
+              className="bg-[var(--bg-secondary)] rounded-2xl shadow-2xl w-full max-w-md overflow-hidden border border-[var(--border-primary)]"
               initial={{ scale: 0.85, y: 40, opacity: 0 }}
               animate={{ scale: 1, y: 0, opacity: 1 }}
               exit={{ scale: 0.85, y: 40, opacity: 0 }}
@@ -104,7 +104,7 @@ export default function RejectModal({ isOpen, onClose, onConfirm, gatepassId, st
 
                 {/* Quick reasons */}
                 <div>
-                  <p className="text-sm font-medium text-gray-600 mb-2">Quick reasons:</p>
+                  <p className="text-sm font-medium text-[var(--text-secondary)] mb-2">Quick reasons:</p>
                   <div className="flex flex-wrap gap-2">
                     {QUICK_REASONS.map((r, i) => (
                       <motion.button
@@ -113,7 +113,7 @@ export default function RejectModal({ isOpen, onClose, onConfirm, gatepassId, st
                         className={`text-xs px-3 py-1.5 rounded-full border transition-all ${
                           reason === r
                             ? 'bg-red-500 text-white border-red-500'
-                            : 'bg-gray-50 text-gray-600 border-gray-200 hover:border-red-300 hover:text-red-600'
+                            : 'border-[var(--border-primary)] text-[var(--text-secondary)] hover:border-red-300 hover:text-red-500'
                         }`}
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -129,7 +129,7 @@ export default function RejectModal({ isOpen, onClose, onConfirm, gatepassId, st
 
                 {/* Textarea */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  <label className="block text-sm font-medium text-[var(--text-primary)] mb-1.5">
                     Rejection reason <span className="text-red-500">*</span>
                   </label>
                   <textarea
@@ -138,9 +138,9 @@ export default function RejectModal({ isOpen, onClose, onConfirm, gatepassId, st
                     onChange={(e) => setReason(e.target.value)}
                     placeholder="Provide a clear reason for rejection..."
                     rows={3}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm resize-none focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 border border-[var(--border-primary)] bg-[var(--bg-primary)] text-[var(--text-primary)] rounded-xl text-sm resize-none focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent transition-all placeholder:text-[var(--text-tertiary)]"
                   />
-                  <p className="text-xs text-gray-400 mt-1 text-right">{reason.length} characters</p>
+                  <p className="text-xs text-[var(--text-tertiary)] mt-1 text-right">{reason.length} characters</p>
                 </div>
               </div>
 
@@ -148,7 +148,7 @@ export default function RejectModal({ isOpen, onClose, onConfirm, gatepassId, st
               <div className="px-6 pb-5 flex gap-3">
                 <motion.button
                   onClick={onClose}
-                  className="flex-1 px-4 py-2.5 rounded-xl border-2 border-gray-200 text-gray-600 font-medium hover:bg-gray-50 transition-all"
+                  className="flex-1 px-4 py-2.5 rounded-xl border-2 border-[var(--border-primary)] text-[var(--text-secondary)] font-medium hover:bg-[var(--surface-hover)] transition-all"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >

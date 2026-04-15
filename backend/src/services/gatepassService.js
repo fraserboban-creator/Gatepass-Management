@@ -27,9 +27,15 @@ class GatepassService {
     });
 
     // Notify coordinators
-    NotificationService.notifyCoordinators(gatepassId, 'New gatepass request pending approval');
+    NotificationService.notifyCoordinators(gatepassId, `New gatepass request from student — pending approval`);
 
-    return GatepassModel.findById(gatepassId);
+    // Notify parent that gatepass was created (fire-and-forget)
+    const created = GatepassModel.findById(gatepassId);
+    ParentNotificationService.notifyParentOnCreation(created, studentId).catch(err =>
+      console.error('Parent creation notification failed:', err)
+    );
+
+    return created;
   }
 
   /**
@@ -210,7 +216,10 @@ class GatepassService {
     
     // Notify parent about exit
     await ParentNotificationService.notifyParentOnExit(updatedGatepass, { id: gatepass.student_id });
-    
+
+    // Notify admins
+    NotificationService.notifyAdmins(gatepassId, 'Student Exited', `Student exited hostel for ${gatepass.destination}`, 'info');
+
     return updatedGatepass;
   }
 
@@ -252,7 +261,10 @@ class GatepassService {
     
     // Notify parent about return
     await ParentNotificationService.notifyParentOnReturn(updatedGatepass, { id: gatepass.student_id });
-    
+
+    // Notify admins
+    NotificationService.notifyAdmins(gatepassId, 'Student Returned', `Student returned to hostel from ${gatepass.destination}`, 'success');
+
     return updatedGatepass;
   }
 

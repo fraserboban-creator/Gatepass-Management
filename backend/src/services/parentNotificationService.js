@@ -10,6 +10,45 @@ class ParentNotificationService {
   }
 
   /**
+   * Notify parent when gatepass is CREATED by student
+   */
+  static async notifyParentOnCreation(gatepass, studentId) {
+    try {
+      const studentData = UserModel.findById(studentId);
+      if (!this.isEnabled(studentData)) return { success: false, message: 'Parent notifications disabled or not configured' };
+
+      const parentName = studentData.parent_name || 'Parent';
+      const studentName = studentData.full_name;
+      const leaveTime = new Date(gatepass.leave_time).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' });
+      const returnTime = new Date(gatepass.expected_return_time).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' });
+
+      const subject = `Gatepass Request Created – ${studentName}`;
+      const html = `
+        <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;">
+          <h2 style="color:#3B82F6;">📋 Gatepass Request Created</h2>
+          <p>Dear ${parentName},</p>
+          <p>Your ward <strong>${studentName}</strong> has submitted a gatepass request. Please stay informed.</p>
+          <div style="background:#EFF6FF;padding:20px;border-radius:8px;border-left:4px solid #3B82F6;margin:20px 0;">
+            <table style="width:100%;border-collapse:collapse;">
+              <tr><td style="padding:6px 0;"><strong>Student:</strong></td><td>${studentName}</td></tr>
+              <tr><td style="padding:6px 0;"><strong>Destination:</strong></td><td>${gatepass.destination}</td></tr>
+              <tr><td style="padding:6px 0;"><strong>Reason:</strong></td><td>${gatepass.reason}</td></tr>
+              <tr><td style="padding:6px 0;"><strong>Planned Leave:</strong></td><td>${leaveTime}</td></tr>
+              <tr><td style="padding:6px 0;"><strong>Expected Return:</strong></td><td style="color:#F59E0B;font-weight:bold;">${returnTime}</td></tr>
+            </table>
+          </div>
+          <p style="color:#6B7280;font-size:13px;">The request is currently pending approval. You will receive further updates.</p>
+          <p style="color:#6B7280;font-size:13px;">Hostel Gatepass Management System</p>
+        </div>`;
+
+      return await emailService.sendEmail(studentData.parent_email, subject, html);
+    } catch (error) {
+      console.error('Error notifying parent on creation:', error);
+      return { success: false, error: error.message };
+    }
+  }
+
+  /**
    * Notify parent when gatepass is approved
    */
   static async notifyParentOnApproval(gatepass, studentId) {

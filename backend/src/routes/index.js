@@ -12,6 +12,7 @@ const studentRoutes = require('./studentRoutes');
 const overdueRoutes = require('./overdueRoutes');
 const visitorPassRoutes = require('./visitorPassRoutes');
 const profileRoutes = require('./profileRoutes');
+const aiAssistantRoutes = require('./aiAssistantRoutes');
 
 // Mount routes
 router.use('/auth', authRoutes);
@@ -25,6 +26,7 @@ router.use('/analytics', analyticsRoutes);
 router.use('/student', studentRoutes);
 router.use('/overdue', overdueRoutes);
 router.use('/visitor-pass', visitorPassRoutes);
+router.use('/admin', aiAssistantRoutes);
 
 // Health check
 router.get('/health', (req, res) => {

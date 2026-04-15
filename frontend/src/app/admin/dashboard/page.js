@@ -9,6 +9,7 @@ import PageTransition from '@/components/common/PageTransition';
 import DashboardCard from '@/components/common/DashboardCard';
 import { containerVariants, listItemVariants } from '@/lib/animations';
 import { Users, FileText, Clock, CheckCircle } from 'lucide-react';
+import AIAssistantCard from '@/components/admin/AIAssistantCard';
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({
@@ -95,6 +96,15 @@ export default function AdminDashboard() {
           delay={0.3}
         />
       </div>
+
+      <motion.div
+        className="col-span-full mb-6"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.35 }}
+      >
+        <AIAssistantCard adminId={user?.id} onCommandExecuted={fetchData} />
+      </motion.div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <motion.div 

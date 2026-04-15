@@ -39,7 +39,17 @@ class NotificationService {
   static notifyWardens(gatepassId, message) {
     const wardens = UserModel.findByRole(ROLES.WARDEN);
     wardens.forEach(warden => {
-      this.create(warden.id, gatepassId, 'Gatepass Pending Approval', message, 'info');
+      this.create(warden.id, gatepassId, 'Gatepass Awaiting Final Approval', message, 'info');
+    });
+  }
+
+  /**
+   * Notify all admins
+   */
+  static notifyAdmins(gatepassId, title, message, type = 'info') {
+    const admins = UserModel.findByRole(ROLES.ADMIN);
+    admins.forEach(admin => {
+      this.create(admin.id, gatepassId, title, message, type);
     });
   }
 

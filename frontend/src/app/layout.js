@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
               {!isLoginPage && <FixedSidebar />}
               <ErrorPopupContainer />
               {!isLoginPage && <FloatingActionButtons />}
-              <main className={isLoginPage ? '' : 'md:ml-64 bg-[#f9fafb] min-h-screen'}>
+              <main className={isLoginPage ? 'min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 px-4 py-8' : 'md:ml-64 bg-[var(--bg-primary)] min-h-screen'}>
                 {isLoginPage ? children : <PageContainer>{children}</PageContainer>}
               </main>
               <Toaster

@@ -28,6 +28,42 @@
     
     --accent-primary: #3B82F6;
     --accent-hover: #2563EB;
+
+    --sidebar-from: #1e3a5f;
+    --sidebar-to: #1e40af;
+    --sidebar-border: rgba(255,255,255,0.1);
+    --sidebar-text: rgba(255,255,255,0.8);
+    --sidebar-active: rgba(59,130,246,0.9);
+    --sidebar-hover: rgba(255,255,255,0.08);
+  }
+
+  /* Dark Mode Variables */
+  [data-mode="dark"] {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-tertiary: #1e293b;
+    --bg-elevated: #334155;
+    
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-tertiary: #64748b;
+    --text-disabled: #475569;
+    
+    --border-primary: #334155;
+    --border-secondary: #1e293b;
+    
+    --surface-hover: #334155;
+    --surface-active: #3b4f6b;
+    
+    --accent-primary: #60a5fa;
+    --accent-hover: #3b82f6;
+
+    --sidebar-from: #0f172a;
+    --sidebar-to: #1e293b;
+    --sidebar-border: rgba(255,255,255,0.06);
+    --sidebar-text: rgba(255,255,255,0.7);
+    --sidebar-active: rgba(96,165,250,0.25);
+    --sidebar-hover: rgba(255,255,255,0.05);
   }
 
   body {
@@ -125,7 +161,9 @@
   
   /* Card Styles - Minimal Soft Blue Design */
   .card {
-    @apply bg-[var(--bg-secondary)] rounded-xl p-6 transition-all duration-200 border border-[var(--border-primary)];
+    background-color: var(--bg-secondary);
+    border-color: var(--border-primary);
+    @apply rounded-xl p-6 transition-all duration-200 border;
     box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   }
 
@@ -139,7 +177,14 @@
   
   /* Input Styles - Clean and Minimal */
   .input {
-    @apply w-full px-4 py-2.5 bg-[var(--bg-secondary)] border border-[var(--border-primary)] rounded-lg text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] transition-all duration-200;
+    background-color: var(--bg-secondary);
+    border-color: var(--border-primary);
+    color: var(--text-primary);
+    @apply w-full px-4 py-2.5 border rounded-lg transition-all duration-200;
+  }
+
+  .input::placeholder {
+    color: var(--text-tertiary);
   }
 
   .input:focus {
@@ -220,7 +265,8 @@
 
   /* Table Styles - Clean and Minimal */
   .table-container {
-    @apply overflow-x-auto rounded-xl border border-[var(--border-primary)];
+    @apply overflow-x-auto rounded-xl border;
+    border-color: var(--border-primary);
     box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   }
 
@@ -229,15 +275,23 @@
   }
 
   .table thead {
-    @apply bg-blue-50 border-b border-[var(--border-primary)] sticky top-0 z-10;
+    background-color: var(--bg-tertiary);
+    border-bottom: 1px solid var(--border-primary);
+    @apply sticky top-0 z-10;
   }
 
   .table th {
-    @apply px-6 py-4 font-semibold text-blue-700 whitespace-nowrap;
+    @apply px-6 py-4 font-semibold whitespace-nowrap;
+    color: var(--accent-primary);
   }
 
   .table tbody tr {
-    @apply border-b border-[var(--border-secondary)] hover:bg-[var(--surface-hover)] transition-colors duration-150;
+    border-bottom: 1px solid var(--border-secondary);
+    @apply transition-colors duration-150;
+  }
+
+  .table tbody tr:hover {
+    background-color: var(--surface-hover);
   }
 
   .table tbody tr:last-child {
@@ -245,7 +299,8 @@
   }
 
   .table td {
-    @apply px-6 py-4 text-[var(--text-primary)];
+    @apply px-6 py-4;
+    color: var(--text-primary);
   }
 
   /* Loading Skeleton */
@@ -366,6 +421,21 @@
     100% {
       background-position: 1000px 0;
     }
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-slideDown {
+    animation: slideDown 0.2s ease-out;
   }
 
   .shimmer {

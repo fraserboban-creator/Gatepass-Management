@@ -25,7 +25,7 @@ export default function Header({ onMenuClick }) {
 
   return (
     <>
-      <div className="bg-white border-b border-blue-200 px-4 sm:px-6 py-4 shadow-sm">
+      <div className="bg-[var(--bg-secondary)] border-b border-[var(--border-primary)] px-4 sm:px-6 py-4 shadow-sm">
         {/* Top Row - User Info and Actions */}
         <div className="flex justify-between items-center mb-4">
           <div className="flex items-center gap-4">
@@ -40,10 +40,10 @@ export default function Header({ onMenuClick }) {
               </button>
             )}
             <div>
-              <h2 className="text-lg sm:text-xl font-semibold text-blue-900">
+              <h2 className="text-lg sm:text-xl font-semibold text-[var(--text-primary)]">
                 Welcome, {user.full_name}!
               </h2>
-              <p className="text-xs sm:text-sm text-blue-600 capitalize">{user.role}</p>
+              <p className="text-xs sm:text-sm text-[var(--text-secondary)] capitalize">{user.role}</p>
             </div>
           </div>
           
@@ -54,11 +54,11 @@ export default function Header({ onMenuClick }) {
             {/* Profile Button */}
             <button
               onClick={() => setShowProfileModal(true)}
-              className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-blue-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+              className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-[var(--surface-hover)] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
             >
               <div className="text-right">
-                <p className="font-medium text-blue-900">{user.full_name}</p>
-                <p className="text-xs text-blue-600">View Profile</p>
+                <p className="font-medium text-[var(--text-primary)]">{user.full_name}</p>
+                <p className="text-xs text-[var(--text-secondary)]">View Profile</p>
               </div>
               <div className="w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">
                 {user.full_name.charAt(0).toUpperCase()}
@@ -75,13 +75,13 @@ export default function Header({ onMenuClick }) {
 
       {/* Profile Modal */}
       {showProfileModal && (
-        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 backdrop-blur-sm">
-          <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4 border border-blue-200 shadow-lg">
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 backdrop-blur-sm">
+          <div className="bg-[var(--bg-secondary)] rounded-xl p-6 max-w-md w-full mx-4 border border-[var(--border-primary)] shadow-2xl">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-blue-900">My Profile</h2>
+              <h2 className="text-2xl font-bold text-[var(--text-primary)]">My Profile</h2>
               <button
                 onClick={() => setShowProfileModal(false)}
-                className="text-blue-400 hover:text-blue-600 text-2xl transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400 rounded"
+                className="text-[var(--text-tertiary)] hover:text-[var(--text-primary)] text-2xl transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400 rounded"
               >
                 ×
               </button>
@@ -94,51 +94,48 @@ export default function Header({ onMenuClick }) {
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-blue-600 mb-1">Full Name</label>
-                <p className="text-lg font-semibold text-blue-900">{user.full_name}</p>
-              </div>
+              {[
+                { label: 'Full Name', value: user.full_name },
+                { label: 'Email', value: user.email },
+              ].map(({ label, value }) => (
+                <div key={label}>
+                  <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1">{label}</label>
+                  <p className="text-base font-medium text-[var(--text-primary)]">{value}</p>
+                </div>
+              ))}
 
               <div>
-                <label className="block text-sm font-medium text-blue-600 mb-1">Email</label>
-                <p className="text-lg text-blue-800">{user.email}</p>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-blue-600 mb-1">Role</label>
+                <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1">Role</label>
                 <span className="badge badge-primary capitalize">{user.role}</span>
               </div>
 
               {user.student_id && (
                 <div>
-                  <label className="block text-sm font-medium text-blue-600 mb-1">Student ID</label>
-                  <p className="text-lg text-blue-800">{user.student_id}</p>
+                  <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1">Student ID</label>
+                  <p className="text-base text-[var(--text-primary)]">{user.student_id}</p>
                 </div>
               )}
-
               {user.phone && (
                 <div>
-                  <label className="block text-sm font-medium text-blue-600 mb-1">Phone</label>
-                  <p className="text-lg text-blue-800">{user.phone}</p>
+                  <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1">Phone</label>
+                  <p className="text-base text-[var(--text-primary)]">{user.phone}</p>
                 </div>
               )}
-
               {user.hostel_block && (
                 <div>
-                  <label className="block text-sm font-medium text-blue-600 mb-1">Hostel Block</label>
-                  <p className="text-lg text-blue-800">{user.hostel_block}</p>
+                  <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1">Hostel Block</label>
+                  <p className="text-base text-[var(--text-primary)]">{user.hostel_block}</p>
                 </div>
               )}
-
               {user.room_number && (
                 <div>
-                  <label className="block text-sm font-medium text-blue-600 mb-1">Room Number</label>
-                  <p className="text-lg text-blue-800">{user.room_number}</p>
+                  <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1">Room Number</label>
+                  <p className="text-base text-[var(--text-primary)]">{user.room_number}</p>
                 </div>
               )}
 
               <div>
-                <label className="block text-sm font-medium text-blue-600 mb-1">Account Status</label>
+                <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1">Account Status</label>
                 <span className={`badge ${user.is_active ? 'badge-success' : 'badge-danger'}`}>
                   {user.is_active ? 'Active' : 'Inactive'}
                 </span>
@@ -155,7 +152,7 @@ export default function Header({ onMenuClick }) {
               </button>
               <button
                 onClick={() => setShowProfileModal(false)}
-                className="btn btn-secondary w-full"
+                className="btn btn-outline w-full"
               >
                 Close
               </button>

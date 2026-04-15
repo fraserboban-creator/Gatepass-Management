@@ -25,10 +25,36 @@ class UserModel {
   }
 
   /**
+   * Find user by exact full name (case-insensitive)
+   */
+  static findByName(name) {
+    return db.prepare('SELECT * FROM users WHERE LOWER(full_name) = LOWER(?)').get(name);
+  }
+
+  /**
    * Find user by email
    */
   static findByEmail(email) {
     return db.prepare('SELECT * FROM users WHERE email = ?').get(email);
+  }
+
+  /**
+   * Find user by Google ID
+   */
+  static findByGoogleId(googleId) {
+    return db.prepare('SELECT * FROM users WHERE google_id = ?').get(googleId);
+  }
+
+  /**
+   * Create a Google OAuth user (no password)
+   */
+  static createGoogleUser(userData) {
+    const stmt = db.prepare(`
+      INSERT INTO users (email, password_hash, role, full_name, google_id)
+      VALUES (?, NULL, ?, ?, ?)
+    `);
+    const result = stmt.run(userData.email, userData.role, userData.full_name, userData.google_id);
+    return result.lastInsertRowid;
   }
 
   /**

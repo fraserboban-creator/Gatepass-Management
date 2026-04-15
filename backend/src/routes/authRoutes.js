@@ -8,6 +8,7 @@ const { registerValidation, loginValidation, handleValidationErrors } = require(
 // Public routes
 router.post('/register', registerValidation, handleValidationErrors, AuthController.register);
 router.post('/login', authLimiter, loginValidation, handleValidationErrors, AuthController.login);
+router.post('/forgot-password', authLimiter, AuthController.forgotPassword);
 
 // Protected routes
 router.post('/logout', authenticateToken, AuthController.logout);

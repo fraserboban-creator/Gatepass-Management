@@ -180,7 +180,7 @@ export default function GlobalSearchBar({
           className={`relative flex-shrink-0 h-12 px-4 flex items-center gap-2 rounded-xl border-2 font-medium transition-all duration-200 shadow-sm hover:shadow-md ${
             showFilters || activeFilterCount > 0
               ? 'bg-blue-50 border-blue-500 text-blue-700'
-              : 'bg-white border-gray-200 text-gray-700 hover:border-gray-300'
+              : 'bg-[var(--bg-secondary)] border-[var(--border-primary)] text-[var(--text-secondary)] hover:border-[var(--accent-primary)]'
           }`}
         >
           <Filter className="w-5 h-5" />
@@ -205,7 +205,7 @@ export default function GlobalSearchBar({
                 roomNumber: '',
               })
             }
-            className="flex-shrink-0 h-12 px-4 flex items-center gap-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium transition-colors"
+            className="flex-shrink-0 h-12 px-4 flex items-center gap-2 rounded-xl bg-[var(--surface-hover)] hover:bg-[var(--surface-active)] text-[var(--text-secondary)] font-medium transition-colors"
             title="Clear all filters"
           >
             <X className="w-5 h-5" />

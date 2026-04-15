@@ -23,11 +23,12 @@ export default function NotificationBell() {
       {/* Bell Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200 group"
+        className="relative p-2 rounded-lg hover:bg-[var(--surface-hover)] transition-all duration-200 group"
         aria-label="Notifications"
       >
         <Bell 
-          className="w-5 h-5 text-gray-600 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white transition-colors" 
+          className="w-5 h-5 transition-colors"
+          style={{ color: 'var(--text-secondary)' }}
         />
         
         {/* Unread Badge */}

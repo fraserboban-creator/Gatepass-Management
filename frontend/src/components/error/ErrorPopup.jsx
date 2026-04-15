@@ -1,8 +1,9 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
-import { AlertCircle, X } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { AlertCircle, X, Home } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import Modal from '@/components/common/Modal';
 
 export default function ErrorPopup({ isOpen, onClose, title = '404 Error', message = 'Something went wrong.' }) {
   const router = useRouter();
@@ -13,85 +14,62 @@ export default function ErrorPopup({ isOpen, onClose, title = '404 Error', messa
   };
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <>
-          {/* Backdrop */}
-          <motion.div
-            className="fixed inset-0 bg-black bg-opacity-50 z-40"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+    <Modal isOpen={isOpen} onClose={onClose} showClose={false} maxWidth="max-w-md">
+      <div className="p-8 text-center">
+        {/* Icon */}
+        <motion.div
+          className="flex justify-center mb-5"
+          initial={{ scale: 0, rotate: -15 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{ delay: 0.1, type: 'spring', stiffness: 260, damping: 20 }}
+        >
+          <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center">
+            <AlertCircle size={40} className="text-red-500" />
+          </div>
+        </motion.div>
+
+        {/* Title */}
+        <motion.h2
+          className="text-2xl font-bold text-[var(--text-primary)] mb-2"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+        >
+          {title}
+        </motion.h2>
+
+        {/* Message */}
+        <motion.p
+          className="text-[var(--text-secondary)] mb-8 leading-relaxed"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          {message}
+        </motion.p>
+
+        {/* Buttons */}
+        <motion.div
+          className="flex gap-3"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25 }}
+        >
+          <button
             onClick={onClose}
-          />
-
-          {/* Modal */}
-          <motion.div
-            className="fixed inset-0 flex items-center justify-center z-50 p-4"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            className="flex-1 px-4 py-2.5 rounded-xl border-2 border-[var(--border-primary)] text-[var(--text-secondary)] font-medium hover:bg-[var(--surface-hover)] transition-all"
           >
-            <motion.div
-              className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8"
-              initial={{ y: 20 }}
-              animate={{ y: 0 }}
-              exit={{ y: 20 }}
-            >
-              {/* Close Button */}
-              <button
-                onClick={onClose}
-                className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-lg transition-colors"
-              >
-                <X size={20} className="text-gray-500" />
-              </button>
-
-              {/* Error Icon */}
-              <motion.div
-                className="flex justify-center mb-6"
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 0.1, type: 'spring', damping: 20 }}
-              >
-                <div className="p-4 bg-red-100 rounded-full">
-                  <AlertCircle size={48} className="text-red-600" />
-                </div>
-              </motion.div>
-
-              {/* Title */}
-              <h2 className="text-2xl font-bold text-center text-gray-900 mb-3">
-                {title}
-              </h2>
-
-              {/* Message */}
-              <p className="text-center text-gray-600 mb-8 leading-relaxed">
-                {message}
-              </p>
-
-              {/* Buttons */}
-              <div className="flex gap-3">
-                <motion.button
-                  onClick={onClose}
-                  className="flex-1 px-4 py-3 rounded-lg border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition-colors"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  Close
-                </motion.button>
-                <motion.button
-                  onClick={handleReturnToDashboard}
-                  className="flex-1 px-4 py-3 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition-colors"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  Return to Dashboard
-                </motion.button>
-              </div>
-            </motion.div>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
+            Close
+          </button>
+          <button
+            onClick={handleReturnToDashboard}
+            className="flex-1 px-4 py-2.5 rounded-xl bg-[var(--accent-primary)] hover:bg-[var(--accent-hover)] text-white font-medium transition-all flex items-center justify-center gap-2"
+          >
+            <Home size={16} />
+            Dashboard
+          </button>
+        </motion.div>
+      </div>
+    </Modal>
   );
 }

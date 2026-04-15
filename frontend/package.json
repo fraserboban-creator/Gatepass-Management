@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-oauth/google": "^0.13.4",
     "axios": "^1.6.2",
     "chart.js": "^4.4.1",
     "date-fns": "^3.0.6",
